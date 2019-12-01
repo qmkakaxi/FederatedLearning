@@ -23,7 +23,7 @@ import torch.multiprocessing as mp
 
 
 class Partition(object):
-    """ Dataset-like object, but only access a subset of it. """
+
 
     def __init__(self, data, index):
        self.data = data
@@ -37,42 +37,9 @@ class Partition(object):
         data_idx = self.index[index]
         return self.data[data_idx]
 
-class DataPartitioner(object):
-    """ Partitions a dataset into different chuncks. """
-
-    def __init__(self, data, sizes=[0.7, 0.2, 0.1], seed=1234):
-        self.data = data
-        self.partitions = []
-        rng = Random()
-        rng.seed(seed)
-        data_len = len(data)
-        indexes = [x for x in range(0, data_len)]
-        rng.shuffle(indexes)
-
-        for frac in sizes:
-            part_len = int(frac * data_len)
-            self.partitions.append(indexes[0:part_len])
-            indexes = indexes[part_len:]
-
-    def use(self, partition):
-        return DatasetSplit(self.data, self.partitions[partition])
-
-
-class DatasetSplit(Dataset):
-    def __init__(self, dataset, idxs):
-        self.dataset = dataset
-        self.idxs = list(idxs)
-
-    def __len__(self):
-        return len(self.idxs)
-
-    def __getitem__(self, item):
-        image, label = self.dataset[self.idxs[item]]
-        return image, label
-
 
 def partition_dataset():
-    """ Partitioning dataset """
+    """ 分发数据 """
 
     trans_mnist = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
     dataset_train = datasets.MNIST('data/', train=True, download=True, transform=trans_mnist)
@@ -89,7 +56,7 @@ def partition_dataset():
 
 
 def average_gradients(w,group,allgroup):
-    """ Gradient averaging. """
+    """ 梯度整合 """
 
 
     rank=dist.get_rank()
