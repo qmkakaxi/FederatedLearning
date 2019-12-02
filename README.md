@@ -29,7 +29,7 @@
  ```
  python DataSplit.py
  ```
- ### attackdata数据分割(attackDataSplit):
+ ### attackdata分割(attackDataSplit):
  
   ```
  python attackDataSplit.py
