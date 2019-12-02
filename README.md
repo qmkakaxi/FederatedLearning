@@ -13,7 +13,7 @@
  
    federatedlearning：本次实验使用gpu作为一个client，每个client拥有自己数据，client在本地进行训练后，将梯度数据传给server，由server整合后分发给所有client
    
-   influencefunction：由server和client交互迭代计算stest，计算完成后，server将最终的stest发给所有client，client根据训练数据的grad和stest计算influencefunction，然后发送给server。在计算influencefunction过程中，client只能得到stest，不能获取到其他client和data和grad。
+   influencefunction：由server和client交互迭代计算stest，计算完成后，server将最终的stest发给所有client，client根据训练数据的grad和stest计算influencefunction，然后发送给server。在计算influencefunction过程中，client只能得到stest，不能获取到其他client和data和grad。(封装在models.influence)
  
    备注：nccl不支持pytorch框架的send和rev方法，实验使用boradcast模拟send和rev，server和每个client建立一个group，保证client向server发送消息时，不会被其他client收到。
  
