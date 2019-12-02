@@ -4,7 +4,6 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 
-    return accuracy, test_loss
 def test(net_g, data_loader, args):
     net_g.eval()
     test_loss = 0
