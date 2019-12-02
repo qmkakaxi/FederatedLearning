@@ -26,7 +26,7 @@
  
  python fedlearning.py --rank 3 --world-size 4
  
- #计算influence：
+ ###计算influence：
  
  python fedinfluence.py --rank 0 --world-size 4
  
