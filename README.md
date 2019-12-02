@@ -29,7 +29,16 @@
  ```
  python DataSplit.py
  ```
+ ### attackdata数据分割(attackDataSplit):
  
+  ```
+ python attackDataSplit.py
+ ```
+ 本实验提供两种attackdata方式（封装在models.attackdata.py)：
+ 1. generate_attack_data1:
+    将一部分用户数据中的2与6的数据混合，形成标签为2的新数据
+ 2. generate_attack_data2:
+    将一部分client的数据的标签置换为错误标签
  ### 联邦学习：
   在第一台服务器
   ```
