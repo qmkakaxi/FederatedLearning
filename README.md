@@ -31,24 +31,40 @@
  ```
  
  ### 联邦学习：
- 
+  在第一台服务器
+  ```
  python fedlearning.py --rank 0 --world-size 4
- 
+  ```
+  在第二台服务器
+  ```
  python fedlearning.py --rank 1 --world-size 4
- 
+  ```
+  在第三台服务器
+  ```
  python fedlearning.py --rank 2 --world-size 4
- 
+ ```
+  在第四台服务器
+  ```
  python fedlearning.py --rank 3 --world-size 4
+ ```
  
  ### 计算influence：
- 
+  在第一台服务器
+  ```
  python fedinfluence.py --rank 0 --world-size 4
- 
+ ```
+  在第二台服务器
+  ```
  python fedinfluence.py --rank 1 --world-size 4
- 
+ ```
+  在第三台服务器
+  ```
  python fedinfluence.py --rank 2 --world-size 4
- 
+ ```
+  在第四台服务器
+  ```
  python fedinfluence.py --rank 3 --world-size 4
+ ```
  
  备注：代码中的数据为mnist数据，如果您想使用其他数据，只需要修改数据读取方式和在models.Nets加入您的网络结构。
  
