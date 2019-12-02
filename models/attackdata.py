@@ -36,7 +36,7 @@ def generate_attack_data1(dataName, dict_users, dataset, noisy_client, noisy_rat
 def generate_attack_data2(dataName, dict_users, dataset, noisy_client, noisy_rate):
 
     """
-    将一部分client的数据的标签置换为错误标签，选取前noisy_client的
+    将一部分client的数据的标签置换为错误标签，选取前noisy_client的client进行处理
     不需要返回值，直接修改了原始数据集，故调用后，如需原始数据集，需要再次读取
     """
     if dataName == 'mnist':
