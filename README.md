@@ -21,6 +21,15 @@
  
  使用第一台服务器的第1号GPU作为server，其余14个GPU作为client
  
+ 
+ ### 数据分割(DataSplit.py):
+ 
+ 对已有数据进行分割：
+ 
+ ```
+`linux` `网络编程` `socket` `epoll` 
+```
+ 
  ### 联邦学习：
  
  python fedlearning.py --rank 0 --world-size 4
