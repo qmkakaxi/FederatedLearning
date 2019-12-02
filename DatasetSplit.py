@@ -25,7 +25,7 @@ if __name__=='__main__':
     dataset_train = datasets.MNIST('data/', train=True, download=True, transform=trans_mnist)
 
     dict_users = mnist_iid(dataset_train, num_users)
-    torch.save(dict_users,'duct_user')
+    torch.save(dict_users,'dict_user')
 
 
     for i in range(num_users):
