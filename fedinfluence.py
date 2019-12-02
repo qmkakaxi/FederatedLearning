@@ -105,7 +105,7 @@ def main_worker(gpu,ngpus_per_node, args):
         #加载训练数据
         data=torch.load("data/distributed/data_of_client{}".format(newrank))
         bsz=64
-        train_set=torch.utils.data.DataLoader(data, batch_size=bsz, shuffle=True)
+        train_set=torch.utils.data.DataLoader(data, batch_size=bsz)
         model=CNNMnist().to(args.device)
         model.load_state_dict(torch.load('w_wag'))     #加载模型
         v=[i.to(args.device) for i in list(model.parameters())]
