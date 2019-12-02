@@ -1,21 +1,12 @@
 import time
-import torch.nn as nn
-import argparse
 import copy
-import numpy as np
 from torchvision import datasets, transforms
 import torch
-import random
 from utils.sampling import mnist_iid, mnist_noniid, cifar_iid, mnist_remove
 from utils.options import args_parser
 from models.Nets import CNNMnist, CNNCifar
 from models.test import test_img,test
-from utils.sampling import set_user
-import pickle
 import torch.distributed as dist
-from torch.utils import data
-from random import Random
-from torch.utils.data import  Dataset
 from math import ceil
 from torch.autograd import Variable
 import torch.nn.functional as F

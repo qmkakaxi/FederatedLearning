@@ -1,25 +1,17 @@
 import six
 import torch
 import torch.distributed as dist
-from models.influence import grad_z,hvp,stest
+from models.influence import grad_z,stest
 import models.utility as utility
-from torchvision import datasets, transforms
-import pickle
-import torch.nn as nn
-import argparse
 import copy
 import numpy as np
 from torchvision import datasets, transforms
 from utils.sampling import mnist_iid, mnist_noniid, cifar_iid, mnist_remove
 from utils.options import args_parser
 from models.Nets import CNNMnist, CNNCifar
-from models.test import test_img,test
-from utils.sampling import set_user
-from torch.utils import data
-from torch.autograd import Variable
-import torch.nn.functional as F
+
 import torch.multiprocessing as mp
-from torch.utils.data import  Dataset
+
 
 class Partition(object):
 
