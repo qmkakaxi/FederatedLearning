@@ -126,7 +126,7 @@ def main_worker(gpu,ngpus_per_node, args):
         print(net)
         data=torch.load("data/distributed/data_of_client{}".format(newrank))
         bsz=64
-        train_set=torch.utils.data.DataLoader(data, batch_size=bsz, shuffle=True)
+        train_set=torch.utils.data.DataLoader(data, batch_size=bsz)
 
         optimizer = torch.optim.SGD(net.parameters(), lr=args.lr, momentum=0.5)
         num_batches = ceil(len(train_set.dataset) / float(bsz))
