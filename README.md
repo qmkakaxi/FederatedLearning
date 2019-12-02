@@ -11,6 +11,8 @@
  
  ## 实现：
    本次实验使用gpu作为一个client，每个clent拥有自己数据，每个client在本地进行训练后，将梯度数据传给server，由server整合后分发给client。
+   
+   备注：nccl不支持pytorch框架的send和rev方法，实验使用boradcast模拟send和rev，serv
  
  ## 运行：
  
