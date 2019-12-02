@@ -22,14 +22,14 @@
  使用第一台服务器的第1号GPU作为server，其余14个GPU作为client
  
  
- ### 数据分割(DataSplit.py):
+  ### 数据分割(DataSplit.py):
  
  对已有数据进行分割：
  
  ```
  python DataSplit.py
  ```
- ### attackdata分割(attackDataSplit):
+  ### attackdata分割(attackDataSplit):
  
   ```
  python attackDataSplit.py
@@ -39,7 +39,7 @@
     将一部分用户数据中的2与6的数据混合，形成标签为2的新数据
  2. generate_attack_data2:
     将一部分client的数据的标签置换为错误标签
- ### 联邦学习：
+  ### 联邦学习：
   在第一台服务器
   ```
  python fedlearning.py --rank 0 --world-size 4
@@ -57,7 +57,7 @@
  python fedlearning.py --rank 3 --world-size 4
  ```
  
- ### 计算influence：
+  ### 计算influence：
   在第一台服务器
   ```
  python fedinfluence.py --rank 0 --world-size 4
