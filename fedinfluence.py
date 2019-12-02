@@ -6,45 +6,12 @@ import models.utility as utility
 import copy
 import numpy as np
 from torchvision import datasets, transforms
-from utils.sampling import mnist_iid, mnist_noniid, cifar_iid, mnist_remove
 from utils.options import args_parser
 from models.Nets import CNNMnist, CNNCifar
 
 import torch.multiprocessing as mp
 
 
-class Partition(object):
-
-    def __init__(self, data, index):
-       self.data = data
-       # self.index = index
-       self.index=list(index)
-
-    def __len__(self):
-        return len(self.index)
-
-    def __getitem__(self, index):
-        data_idx = self.index[index]
-        return self.data[data_idx]
-
-
-
-def partition_dataset():
-    """ 分发数据 """
-
-    trans_mnist = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-    dataset_train = datasets.MNIST('data/', train=True, download=True, transform=trans_mnist)
-    size = dist.get_world_size()-1
-    bsz = int(128 / float(size))
-    num_users = size
-    dict_users = mnist_iid(dataset_train, 1000)
-    print("dict_user:{}".format(len(dict_users)))
-    print("world-size:{}".format(dist.get_world_size()))
-    print("rank:{}".format(dist.get_rank()))
-    partition = Partition(dataset_train, dict_users[dist.get_rank()-1])
-    train_set = torch.utils.data.DataLoader(
-        partition, batch_size=bsz)
-    return train_set, bsz
 
 
 def main_worker(gpu,ngpus_per_node, args):
@@ -136,7 +103,9 @@ def main_worker(gpu,ngpus_per_node, args):
         #设置gpu
         args.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() and args.gpu != -1 else 'cpu')
         #加载训练数据
-        train_set, bsz = partition_dataset()
+        data=torch.load("data/distributed/data_of_client{}".format(newrank))
+        bsz=64
+        train_set=torch.utils.data.DataLoader(data, batch_size=bsz, shuffle=True)
         model=CNNMnist().to(args.device)
         model.load_state_dict(torch.load('w_wag'))     #加载模型
         v=[i.to(args.device) for i in list(model.parameters())]

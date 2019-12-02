@@ -2,7 +2,6 @@ import time
 import copy
 from torchvision import datasets, transforms
 import torch
-from utils.sampling import mnist_iid, mnist_noniid, cifar_iid, mnist_remove
 from utils.options import args_parser
 from models.Nets import CNNMnist, CNNCifar
 from models.test import test_img,test
@@ -13,37 +12,8 @@ import torch.nn.functional as F
 import torch.multiprocessing as mp
 
 
-class Partition(object):
 
 
-    def __init__(self, data, index):
-       self.data = data
-       # self.index = index
-       self.index=list(index)
-
-    def __len__(self):
-        return len(self.index)
-
-    def __getitem__(self, index):
-        data_idx = self.index[index]
-        return self.data[data_idx]
-
-
-def partition_dataset():
-    """ 分发数据 """
-
-    trans_mnist = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-    dataset_train = datasets.MNIST('data/', train=True, download=True, transform=trans_mnist)
-    size = dist.get_world_size()-1
-    bsz = int(128 / float(size))
-    num_users = size
-    dict_users = mnist_iid(dataset_train, num_users)
-    print("world-size:{}".format(dist.get_world_size()))
-    print("rank:{}".format(dist.get_rank()))
-    partition = Partition(dataset_train, dict_users[dist.get_rank()-1])
-    train_set = torch.utils.data.DataLoader(
-        partition, batch_size=bsz, shuffle=True)
-    return train_set, bsz
 
 
 def average_gradients(w,group,allgroup):
@@ -154,8 +124,10 @@ def main_worker(gpu,ngpus_per_node, args):
         print("begin train...")
         net = CNNMnist().to(args.device)
         print(net)
+        data=torch.load("data/distributed/data_of_client{}".format(newrank))
+        bsz=64
+        train_set=torch.utils.data.DataLoader(data, batch_size=bsz, shuffle=True)
 
-        train_set, bsz = partition_dataset()
         optimizer = torch.optim.SGD(net.parameters(), lr=args.lr, momentum=0.5)
         num_batches = ceil(len(train_set.dataset) / float(bsz))
         start=time.time()
