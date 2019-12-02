@@ -66,5 +66,5 @@
  python fedinfluence.py --rank 3 --world-size 4
  ```
  
- 备注：代码中的数据为mnist数据，如果您想使用其他数据，只需要修改数据读取方式和在models.Nets加入您的网络结构。
+ 备注：代码中的数据均为mnist数据，如果您想使用其他数据，只需要修改数据读取方式并且在models.Nets加入您的网络结构。
  
