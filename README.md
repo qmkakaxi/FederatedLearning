@@ -43,11 +43,11 @@
     将一部分client的数据的标签置换为错误标签
     
   参数 
-    1. dataName：数据集合的名字，本实验提供mnist和cifar数据集，如果您想测试其他数据集，向其中添加即可。
-    2. dict_users：划分给client的数据的index，用来做确定client具体拥有总数据的哪些数据。
-    3. dataset：原始未数据集。
-    4. noisy_client：type：int，选择前noisy_client的client进行attack处理。
-    5. noisy_rate：attackdata的比例。
+    1.  dataName：数据集合的名字，本实验提供mnist和cifar数据集，如果您想测试其他数据集，向其中添加即可。
+    2.  dict_users：划分给client的数据的index，用来做确定client具体拥有总数据的哪些数据。
+    3.  dataset：原始未数据集。
+    4.  noisy_client：type：int，选择前noisy_client的client进行attack处理。
+    5.  noisy_rate：attackdata的比例。
   ### 联邦学习：
   在第一台服务器
   ```
