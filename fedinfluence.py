@@ -157,7 +157,7 @@ def main_worker(gpu,ngpus_per_node, args):
             target= train_set.collate_fn([target])
             grad_z_vec = grad_z(data, target, model,gpu=gpu)
             #计算influence
-            inf_tmp = -sum([torch.sum(k * j).data.cpu().numpy() for k, j in six.moves.zip(grad_z_vec, s_test_fin)]) 
+            inf_tmp = -sum([torch.sum(k * j).data.cpu().numpy() for k, j in six.moves.zip(grad_z_vec, s_test_fin)]) /n
             influence[i]=inf_tmp
         influence=torch.tensor(influence).to(args.device)
         #向服务器发送influence
