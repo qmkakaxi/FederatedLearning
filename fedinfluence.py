@@ -102,7 +102,7 @@ def main_worker(gpu,ngpus_per_node, args):
         #从client接收influence
         print("rec influence")
         allinfluence=[]
-        influence=torch.tensor([i for i in range(60)],dtype=torch.float32)
+        influence=torch.tensor([i for i in range(4285)],dtype=torch.float32)
         influence=influence.to(args.device)
 
         for i in range(args.world_size-1):
