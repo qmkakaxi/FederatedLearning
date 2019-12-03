@@ -17,8 +17,10 @@ import torch.multiprocessing as mp
 def main_worker(gpu,ngpus_per_node, args):
     print("gpu:",gpu)
     args.gpu = gpu
-    newrank=args.rank*ngpus_per_node+gpu
-    ngpus_per_node * args.world_size
+    if args.rank==0:(第一台服务器只有三台GPU，需要特殊处理)
+        newrank=args.rank*ngpus_per_node+gpu
+    else:
+        newrank=args.rank*ngpus_per_node+gpu-1
     #初始化,使用tcp方式进行通信
     dist.init_process_group(init_method=args.init_method,backend="nccl",world_size=args.world_size,rank=newrank)
 
@@ -155,6 +157,6 @@ if __name__ == '__main__':
     args = args_parser()
 
     ngpus_per_node = torch.cuda.device_count()
-    args.world_size = ngpus_per_node * args.world_size
-  
+    #args.world_size = ngpus_per_node * args.world_size
+    args.world_size=15
     mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
