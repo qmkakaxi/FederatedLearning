@@ -4,7 +4,7 @@ from torchvision import datasets, transforms
 import torch
 from utils.options import args_parser
 from models.Nets import CNNMnist, CNNCifar
-from models.test import test_img,test
+from models.test import test
 import torch.distributed as dist
 from math import ceil
 from torch.autograd import Variable
