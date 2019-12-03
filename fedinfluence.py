@@ -30,7 +30,7 @@ class Partition(object):
 def main_worker(gpu,ngpus_per_node, args):
     print("gpu:",gpu)
     args.gpu = gpu
-    if args.rank==0:(第一台服务器只有三台GPU，需要特殊处理)
+    if args.rank==0:#(第一台服务器只有三台GPU，需要特殊处理)
         newrank=args.rank*ngpus_per_node+gpu
     else:
         newrank=args.rank*ngpus_per_node+gpu-1
