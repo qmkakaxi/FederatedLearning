@@ -47,7 +47,7 @@
   2. dict_users：划分给client的数据的index，用来确定client具体拥有总数据的哪些数据。
   3. dataset：原始未数据集。
   4. noisy_client：type：int，选择前noisy_client的client进行attack处理。
-  5. noisy_rate：attackdata的比例。
+  5. noisy_rate：所加噪声的比例。
   ### 联邦学习：
   在第一台服务器
   ```
