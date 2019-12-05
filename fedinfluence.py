@@ -123,8 +123,11 @@ def main_worker(gpu,ngpus_per_node, args):
         train_set=torch.utils.data.DataLoader(data, batch_size=bsz)
         model=CNNMnist().to(args.device)
         model.load_state_dict(torch.load('w_wag'))     #加载模型
-        v=[i.to(args.device) for i in list(model.parameters())]
-
+        data, target= train_set.dataset[0]
+        data = train_set.collate_fn([data])
+        target= train_set.collate_fn([target])
+        grad_v = grad_z(data, target, model,gpu=gpu)
+        v=grad_v
 
         """calculate influence function"""
         v_new=[]
