@@ -137,7 +137,7 @@ def main_worker(gpu,ngpus_per_node, args):
             temp=i
             dist.broadcast(src=0,tensor=temp,group=group[newrank-1])
             v_new.append(temp)
-        s_test=stest(v_new,model,train_set,gpu,damp=0.01,scale=25.0,repeat=5)   #计算s_test
+        s_test=stest(v_new,model,train_set,gpu,damp=0.01,scale=1000.0,repeat=5)   #计算s_test
         #向server发送s_test,进行下一次迭代
         for i in s_test:
             temp=copy.copy(i)
