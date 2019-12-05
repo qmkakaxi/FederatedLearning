@@ -32,7 +32,6 @@ def grad_z(z, t, model, gpu=-1):
 
 def stest(v,model,z_loader,gpu,damp=0.01,scale=25.0,repeat=5):
     h_estimate=v.copy()
-    h_estimates=v.copy()
     train_set=z_loader
     device = torch.device('cuda:{}'.format(gpu) if torch.cuda.is_available() and gpu != -1 else 'cpu')
     for i in utility.create_progressbar(repeat, desc='s_test'):
@@ -43,7 +42,7 @@ def stest(v,model,z_loader,gpu,damp=0.01,scale=25.0,repeat=5):
         x, t = Variable(data, volatile=False).to(device), Variable(target, volatile=False).to(device)
         y = model(x)
         loss = F.nll_loss(y, t, weight=None, reduction='mean')
-        hv = hvp(loss, list(model.parameters()), h_estimates)
+        hv = hvp(loss, list(model.parameters()), h_estimate)
         h_estimate = [_v + (1 - damp) * h_estimate - _hv / scale for _v, h_estimate, _hv in six.moves.zip(v, h_estimate, hv)]
 
     return h_estimate
