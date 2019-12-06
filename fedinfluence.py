@@ -71,12 +71,12 @@ def main_worker(gpu,ngpus_per_node, args):
         target = test_set.collate_fn([target])
         
         print("begin grad")
-        grad_test=grad_z(data,target,model,gpu)   #v初始值
+        grad_test=grad_z(data,target,model,gpu,create_graph=False)   #v初始值
         print("end grad")
-        #v=torch.tensor(grad_test).to(args.device)
         v=grad_test
+        s_test = []
+
         #向client发送v
- 
         """server与client交互计算s_test"""
         for i in range(args.world_size-1):
             #id_client=random.randint(1,args.world_size) #选择client
@@ -87,14 +87,16 @@ def main_worker(gpu,ngpus_per_node, args):
                 dist.broadcast(src=0,tensor=temp,group=group[i])
             #当client计算完成，从client接收v，准备发给下一个client
             print("rec v from i:",i)
-            v_new=[]
-            for j in v:
+            v_new=copy.deepcopy(v)
+            for j in v_new:
                 temp=j
                 dist.broadcast(src=i+1,tensor=temp,group=group[i])
-                v_new.append(temp)
-            v=v_new
+            s_test.append(v_new)
 	#s_test计算结束，将最终s_test发送给全体client
-        for j in v:
+        e_s_test=s_test[0]
+        for i in range(1,args.world_size-1):
+            e_s_test=e_s_test = [i + j for i, j in six.moves.zip(e_s_test, s_test[i])]
+        for j in e_s_test:
             temp=j
             dist.broadcast(src=0,tensor=temp,group=allgroup)
         """交互结束"""

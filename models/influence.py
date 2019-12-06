@@ -22,13 +22,13 @@ def hvp(y, w, v):
     grad(grad_v, w, create_graph=True)
     return grad(grad_v, w, create_graph=True)
 
-def grad_z(z, t, model, gpu=-1):
+def grad_z(z, t, model, gpu=-,create_graph=True):
     device = torch.device('cuda:{}'.format(gpu) if torch.cuda.is_available() and gpu != -1 else 'cpu')
     model.eval()
     z, t = Variable(z, volatile=False).to(device), Variable(t, volatile=False).to(device)
     y = model(z)
     loss = F.nll_loss(y, t, weight=None, reduction='mean')
-    return list(grad(loss, list(model.parameters()), create_graph=True))
+    return list(grad(loss, list(model.parameters()), create_graph=create_graph))
 
 def stest(v,model,z_loader,gpu,damp=0.01,scale=25.0,repeat=5):
     h_estimate=v.copy()
