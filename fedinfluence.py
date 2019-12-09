@@ -81,12 +81,12 @@ def main_worker(gpu,ngpus_per_node, args):
         for i in range(args.world_size-1):
             #id_client=random.randint(1,args.world_size) #选择client
             #向选择的client发送当前v
-            print("send v to i:",i)
+            print("send v to client:",i+1)
             for j in v:
                 temp=j
                 dist.broadcast(src=0,tensor=temp,group=group[i])
             #当client计算完成，从client接收v，准备发给下一个client
-            print("rec v from i:",i)
+            print("rec v from client:",i+1)
             v_new=copy.deepcopy(v)
             for j in v_new:
                 temp=j
