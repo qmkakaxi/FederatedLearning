@@ -14,7 +14,7 @@ def args_parser():
     parser.add_argument('--init-method', type=str, default='tcp://192.168.1.2:9113') #选择第五台服务器的ip
     parser.add_argument('--rank', type=int)
     parser.add_argument('--world-size',type=int,default=4)  #后四台服务器
-
+    parser.add_argument('--num-sample-rka', type=int, default=10)  #rka算法采样个数
 
     args = parser.parse_args()
     return args
