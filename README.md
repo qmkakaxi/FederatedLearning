@@ -19,10 +19,10 @@
 关于influence function，详见论文：Understanding Black-box Predictions via Influence Functions(https://arxiv.org/pdf/1703.04730.pdf)
 
 1. srochaastic estimation:
-   该方法在<<Understanding Black-box Predictions via Influence Functions>>提出，在联邦学习场景下，由server和client交互迭代计算stest，计算完成后，server将最终的stest发给所有client，client根据训练数据的grad和stest计算influencefunction，然后发送给server。在计算influencefunction过程中，client只能得到stest，不能获取到其他client和data和grad。(封装在models.influence)
+   该方法在Understanding Black-box Predictions via Influence Functions提出，在联邦学习场景下，由server和client交互迭代计算stest，计算完成后，server将最终的stest发给所有client，client根据训练数据的grad和stest计算influencefunction，然后发送给server。在计算influencefunction过程中，client只能得到stest，不能获取到其他client和data和grad。(封装在models.influence)
    
 2. Randomized Kaczmarz Algorithm:
-   该方法在论文<<A Randomized Kaczmarz Algorithm with Exponential Convergence>>提出。
+   该方法在论文A Randomized Kaczmarz Algorithm with Exponential Convergence提出。
  
  ## 运行：
  
