@@ -22,7 +22,7 @@
    该方法在Understanding Black-box Predictions via Influence Functions提出，在联邦学习场景下，由server和client交互迭代计算stest，计算完成后，server将最终的stest发给所有client，client根据训练数据的grad和stest计算influencefunction，然后发送给server。在计算influencefunction过程中，client只能得到stest，不能获取到其他client和data和grad。(封装在models.influence)
    
 2. Randomized Kaczmarz Algorithm:
-   该方法在论文A Randomized Kaczmarz Algorithm with Exponential Convergence提出。(封装在models.rak)
+   该方法在论文A Randomized Kaczmarz Algorithm with Exponential Convergence提出。(封装在models.rka)
  
  ## 运行：
  
