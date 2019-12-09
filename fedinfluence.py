@@ -76,7 +76,7 @@ def main_worker(gpu,ngpus_per_node, args):
         v=grad_test
         s_test = []
 
-        #向client发送v
+
         """server与client交互计算s_test"""
         for i in range(args.world_size-1):
             #id_client=random.randint(1,args.world_size) #选择client
