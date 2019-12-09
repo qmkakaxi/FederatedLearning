@@ -95,7 +95,7 @@ def main_worker(gpu,ngpus_per_node, args):
 	#s_test计算结束，将最终s_test发送给全体client
         e_s_test=s_test[0]
         for i in range(1,args.world_size-1):
-            e_s_test=e_s_test = [i + j for i, j in six.moves.zip(e_s_test, s_test[i])]
+            e_s_test = [i + j for i, j in six.moves.zip(e_s_test, s_test[i])]
         for j in e_s_test:
             temp=j
             dist.broadcast(src=0,tensor=temp,group=allgroup)
