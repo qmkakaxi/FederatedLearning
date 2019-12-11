@@ -35,7 +35,7 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.rank == 0:  # (第一台服务器只有三台GPU，需要特殊处理)
         newrank = args.rank * ngpus_per_node + gpu
     else:
-        newrank = args.rank * ngpus_per_node + gpu
+        newrank = args.rank * ngpus_per_node + gpu-1
     # 初始化,使用tcp方式进行通信
     dist.init_process_group(init_method=args.init_method, backend="nccl", world_size=args.world_size, rank=newrank)
 
